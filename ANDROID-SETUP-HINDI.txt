@@ -1,0 +1,72 @@
+MYSTERY MONEY — ANDROID SE DEPLOYMENT KIT
+========================================
+
+IMPORTANT: यह अभी DEMO वेबसाइट है। इसमें data browser के localStorage में रहता है।
+इस ZIP को deploy करने से केवल demo वेबसाइट live होगी। असली ग्राहक OTP, Google Admin login,
+साझा database, verified payment, सुरक्षित shop/customer permissions और production redemption
+अभी जुड़े नहीं हैं। इस demo पर असली पैसे या ग्राहक का निजी डेटा न लें।
+
+A. Android मोबाइल से GitHub पर प्रोजेक्ट डालें
+--------------------------------------------
+1. Chrome में https://github.com खोलें और अपना account बनाएं / login करें।
+2. + दबाएं > New repository चुनें।
+3. Repository name: mystery-money-membership रखें। Public या Private चुनें।
+4. Create repository दबाएं।
+5. Repository में Add file > Upload files चुनें।
+6. इस ZIP को फोन में Extract करें। Extract किए हुए फोल्डर के अंदर की सभी फाइलें चुनें:
+   index.html, manifest.json, sw.js, icon.svg, vercel.json, यह README.
+   ध्यान दें: फाइलें repository के मुख्य root में होनी चाहिए, किसी अतिरिक्त nested folder में नहीं।
+7. Commit changes दबाएं।
+
+B. Vercel पर मुफ्त preview URL बनाएं
+----------------------------------
+1. https://vercel.com खोलें और Continue with GitHub चुनें।
+2. Add New > Project दबाएं।
+3. mystery-money-membership repository Import करें।
+4. Framework Preset में Other चुनें (या Static/Other विकल्प)।
+5. Root Directory खाली/root रहने दें। Build Command और Output Directory खाली रखें।
+6. Deploy दबाएं।
+7. Deploy पूरा होने पर Vercel आपको https://....vercel.app जैसा URL देगा।
+
+C. अपना custom domain जोड़ें
+----------------------------
+1. पहले किसी .IN Registry-accredited registrar से domain खरीदें।
+   आधिकारिक सूची: https://www.registry.in/index.php/accredited-registrars
+2. नाम उपलब्ध है या नहीं registrar पर check करें। उदाहरण के लिए mysterymoney.in केवल एक विचार है;
+   इसकी उपलब्धता की पुष्टि नहीं की गई है।
+3. Vercel Dashboard > अपना Project > Settings > Domains खोलें।
+4. खरीदा हुआ domain जोड़ें। Vercel जो DNS records दिखाए, उन्हें अपने registrar के DNS panel में
+   बिल्कुल वैसे ही डालें। DNS verify होने और HTTPS बनने तक प्रतीक्षा करें।
+5. चाहें तो www वाला domain भी जोड़ें और primary domain चुनें।
+
+D. Android पर ऐप जैसा Install
+-----------------------------
+1. HTTPS custom domain Chrome में खोलें।
+2. Chrome के तीन डॉट > Add to Home screen / Install app चुनें।
+
+E. Production बनाने से पहले अनिवार्य काम
+----------------------------------------
+- Supabase/Postgres backend और सभी tables पर सही Row Level Security (RLS) policies
+- Admin Google OAuth केवल मालिक के allowlisted Google account तक सीमित
+- Customer और Shopkeeper के लिए real phone OTP provider; भारत में SMS/DLT compliance
+- Payment gateway server-side order creation, signature/webhook verification और refund handling
+- Membership activation केवल verified successful payment के बाद
+- Secure unique codes/QR, server-side validation, repeat redemption limits और audit log
+- प्रत्येक shop को केवल अपने records; customer को केवल अपना membership/card
+- Terms, Privacy Policy, Refund/Cancellation, merchant agreement और discount funding rules
+- Backups, monitoring, rate limits, abuse protection और security review
+
+Security: GitHub/Vercel/Supabase/Razorpay passwords, OTP, secret keys किसी chat या public repo में
+कभी न डालें। Secret keys केवल provider के secure Environment Variables/Secrets में रखें।
+
+
+DEMO TEST MEMBERSHIP (केवल टेस्ट के लिए)
+- ग्राहक मोबाइल: 9999991234
+- टेस्ट कार्ड कोड: MMTEST101ABC
+- दुकानदार लॉगिन मोबाइल: 9999990002 (Patel General Store)
+- Admin Demo PIN: 1234
+- टेस्ट करने के लिए Shopkeeper Login में 9999990002 डालें।
+  फिर Membership Code Verify / Redeem में MMTEST101ABC और बिल 1000 डालें।
+  पहले ऑफर चेक करें, फिर Confirm & Redeem दबाएँ।
+- यह डेमो डेटा उसी ब्राउज़र/डिवाइस के localStorage में रहता है।
+  दूसरे फोन या ब्राउज़र में अपने-आप साझा नहीं होगा। यह असली OTP/पेमेंट/सर्वर डेटाबेस नहीं है।
